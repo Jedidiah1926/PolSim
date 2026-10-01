@@ -1,0 +1,122 @@
+// ===== Hemicycle — 프리셋 목록/불러오기 (index.html·main.html 공용) =====
+// 프리셋은 두 가지 경로로 모인다:
+//   1) 내장 프리셋(BUILTIN) — presets/*.js에 JS로 감싸 두고 <script>로 불러온다.
+//      데스크톱 앱(Electron)은 file://로 열려 fetch로 JSON을 읽을 수 없기 때문.
+//   2) 배포자가 추가한 프리셋 — presets/index.json에 {file, title, description?, date?, tutorial?}로
+//      등록한 presets/<file>(.json). fetch를 쓰므로 웹(http)으로 열었을 때만 보인다 (README 참고).
+//   3) 모드 · 창작마당 프리셋(데스크톱 앱) — 모드 폴더나 구독한 창작마당 아이템에 든 세이브 파일.
+//      목록은 앱이 넘겨주고(window.hemicycleDesktop.modPresets), 상태는 고를 때 앱에서 읽어 온다 (electron/mods.js 참고)
+// 각 프리셋은 { id, title, description, date(게임 속 시작 날짜), tutorial, comingSoon, ... } 형태로 통일되고, id로 다시 찾아 상태를 불러온다.
+// comingSoon이면 목록에 "준비 중"으로 보이기만 하고 고를 수는 없다.
+(function () {
+    'use strict';
+
+    const BUILTIN = [
+        {
+            id: 'builtin:tutorial',
+            title: '튜토리얼 공화국',
+            description: '처음이라면 여기서 시작하세요. 가상의 나라에서 기본 튜토리얼 6개로 화면과 조작을 직접 해보며 익히고, 선거 · 지도 · 단일화 · 부정선거 같은 기능은 세부 튜토리얼에서 골라 배울 수 있어요.',
+            date: '2026년 3월 2일',
+            tutorial: true,
+            script: 'presets/tutorial.js',
+        },
+        {
+            id: 'builtin:japan',
+            title: '일본국',
+            description: '제작자: sushdjr0106',
+            date: '2026년 2월 9일',
+            author: 'sushdjr0106',
+            script: 'presets/japan.js',
+        },
+    ];
+    const INDEX_URL = 'presets/index.json';
+    let listCache = null;
+
+    async function fetchIndexPresets() {
+        try {
+            const res = await fetch(INDEX_URL);
+            if (!res.ok) return [];
+            const list = await res.json();
+            return (Array.isArray(list) ? list : [])
+                .filter(p => p && p.file && p.title)
+                .map(p => ({ id: 'file:' + p.file, title: String(p.title), description: p.description ? String(p.description) : '', date: p.date ? String(p.date) : '', tutorial: !!p.tutorial, file: p.file }));
+        } catch (e) {
+            return []; // file://(데스크톱 앱) 등 fetch를 쓸 수 없는 환경 — 내장 프리셋만 사용
+        }
+    }
+
+    function modPresets() {
+        const d = window.hemicycleDesktop;
+        const raw = d && Array.isArray(d.modPresets) ? d.modPresets : [];
+        return raw.filter(p => p && p.key).map(p => ({
+            id: 'mod:' + p.key,
+            title: String(p.title || p.folder || ''),
+            description: String(p.description || ''),
+            date: String(p.date || ''),
+            author: String(p.author || ''),
+            source: p.source === 'workshop' ? 'workshop' : 'local',
+            modKey: p.key,
+        }));
+    }
+
+    async function list() {
+        if (!listCache) listCache = BUILTIN.map(p => ({ ...p })).concat(await fetchIndexPresets(), modPresets());
+        return listCache;
+    }
+
+    async function find(id) {
+        return (await list()).find(p => p.id === id) || null;
+    }
+
+    const scriptLoads = {};
+    function loadScriptOnce(src) {
+        if (!scriptLoads[src]) {
+            scriptLoads[src] = new Promise((resolve, reject) => {
+                const el = document.createElement('script');
+                el.src = src;
+                el.onload = () => resolve();
+                el.onerror = () => { delete scriptLoads[src]; reject(new Error('preset script load failed: ' + src)); };
+                document.head.appendChild(el);
+            });
+        }
+        return scriptLoads[src];
+    }
+
+    // 프리셋 상태(getAppState()와 같은 형태)를 불러와 복사본으로 돌려준다 — 원본을 건드리지 않게
+    async function loadState(preset) {
+        if (!preset) throw new Error('preset not found');
+        let state;
+        if (preset.script) {
+            await loadScriptOnce(preset.script);
+            state = window.DNO_PRESET_DATA && window.DNO_PRESET_DATA[preset.id];
+        } else if (preset.modKey) {
+            if (!window.hemicycleDesktop || !window.hemicycleDesktop.loadModPreset) throw new Error('mod presets need the desktop app');
+            state = await window.hemicycleDesktop.loadModPreset(preset.modKey);
+        } else {
+            const res = await fetch('presets/' + preset.file);
+            if (!res.ok) throw new Error('preset fetch failed');
+            state = await res.json();
+        }
+        if (!state) throw new Error('preset data missing');
+        const copy = JSON.parse(JSON.stringify(state));
+        applyLocalized(copy, preset.id);
+        return copy;
+    }
+
+    // 지금 언어용 덮어쓰기(DNO_PRESET_I18N[id][lang] = {'경로.0.이름': 값})가 있으면 적용 —
+    // 당명·이념명처럼 입력칸 값으로 보이는 문자열은 화면 번역으로 바뀌지 않기 때문
+    function applyLocalized(state, id) {
+        const lang = typeof window.getLang === 'function' ? window.getLang() : 'kr';
+        const overrides = window.DNO_PRESET_I18N && window.DNO_PRESET_I18N[id] && window.DNO_PRESET_I18N[id][lang];
+        if (!overrides) return;
+        for (const [path, value] of Object.entries(overrides)) {
+            const keys = path.split('.');
+            const last = keys.pop();
+            let obj = state;
+            for (const k of keys) { obj = obj && typeof obj === 'object' ? obj[k] : undefined; }
+            if (obj && typeof obj === 'object' && typeof obj[last] === 'string') obj[last] = value;
+        }
+    }
+
+    window.DnoPresets = { list, find, loadState };
+})();
