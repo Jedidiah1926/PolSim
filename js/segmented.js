@@ -7,7 +7,6 @@
     '.main-tab-container',
     '.sub-tab-container-3',
     '.system-radio-group',
-    '.rd-version-nav',
     '.settings-nav'
   ].join(',');
 
