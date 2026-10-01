@@ -1,0 +1,59 @@
+{
+  "name": "hemicycle",
+  "productName": "Hemicycle",
+  "version": "1.5.9",
+  "description": "Hemicycle — desktop build",
+  "private": true,
+  "main": "electron/main.js",
+  "scripts": {
+    "start": "electron .",
+    "smoketest": "electron electron/smoketest.js",
+    "build:win": "electron-builder --win",
+    "build:win:portable": "electron-builder --win portable"
+  },
+  "devDependencies": {
+    "electron": "^32.0.0",
+    "electron-builder": "^25.0.0"
+  },
+  "build": {
+    "appId": "com.pilcrow1926.hemicycle",
+    "productName": "Hemicycle",
+    "asar": true,
+    "asarUnpack": [
+      "node_modules/steamworks.js/**/*"
+    ],
+    "files": [
+      "electron/**/*",
+      "*.html",
+      "js/**/*",
+      "css/**/*",
+      "fonts/**/*",
+      "presets/**/*",
+      "lang/**/*",
+      "icons/**/*",
+      "!electron/smoketest.js",
+      "!README.md",
+      "!package.json",
+      "!package-lock.json"
+    ],
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": [
+        { "target": "nsis", "arch": ["x64"] }
+      ],
+      "artifactName": "${productName}-${version}-win-x64.${ext}",
+      "icon": "icons/icon.ico"
+    },
+    "nsis": {
+      "artifactName": "${productName}-Setup-${version}.${ext}",
+      "installerIcon": "icons/icon.ico",
+      "uninstallerIcon": "icons/icon.ico",
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
+  }
+}
