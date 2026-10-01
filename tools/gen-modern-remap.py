@@ -14,7 +14,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 P = 'html[data-theme-family="modern"]'
 
 CSS_FILES = ['css/main.css', 'css/index.css']
-INLINE_FILES = ['dno.html', 'main.html', 'settings.html', 'index.html', 'map.html']
+INLINE_FILES = ['main.html', 'settings.html', 'index.html', 'map.html']
 
 
 def read(f):
