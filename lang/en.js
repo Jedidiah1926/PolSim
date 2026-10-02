@@ -627,18 +627,6 @@ window.DnoLangPacks.en = {
    "Desktop (landscape)"
   ],
   [
-   "네온 모드",
-   "Neon mode"
-  ],
-  [
-   "다크 모드",
-   "Dark mode"
-  ],
-  [
-   "라이트 모드",
-   "Light mode"
-  ],
-  [
    "눌러서 이 권역으로 칠하기",
    "Click to paint with this region"
   ],
@@ -677,10 +665,6 @@ window.DnoLangPacks.en = {
   [
    "기기에 맞는 화면 배치를 고릅니다.",
    "Choose the layout that fits your device."
-  ],
-  [
-   "라이트/다크는 CRT 효과 없는 깔끔한 화면, 네온은 기존의 레트로 터미널 화면입니다.",
-   "Light/Dark are clean screens without CRT effects; Neon is the original retro terminal look."
   ],
   [
    "현재 세이브",
@@ -4219,8 +4203,8 @@ window.DnoLangPacks.en = {
    "Edit panel header · resizing"
   ],
   [
-   "편집 패널 맨 위에는 라이트/다크에선 지금 위치(묶음 › 항목), 네온에선 \"MINISTRY OF INTERIOR\" 띠와 국가명이 보입니다. 편집 패널과 시각 화면 사이 경계를 끌면 폭을 바꿀 수 있고, 더블클릭하면 기본 폭으로 돌아가요.",
-   "The top of the edit panel shows your location (group › item) in Light/Dark, or the \"MINISTRY OF INTERIOR\" strip and nation name in Neon. Drag the border between the edit panel and visuals to resize; double-click to reset."
+   "편집 패널 맨 위에는 \"MINISTRY OF INTERIOR\" 띠와 국가명이 보입니다. 편집 패널과 시각 화면 사이 경계를 끌면 폭을 바꿀 수 있고, 더블클릭하면 기본 폭으로 돌아가요.",
+   "The top of the edit panel shows the \"MINISTRY OF INTERIOR\" strip and nation name. Drag the border between the edit panel and visuals to resize; double-click to reset."
   ],
   [
    "실행 버튼과 단축키",
@@ -4987,8 +4971,8 @@ window.DnoLangPacks.en = {
    "Main screen"
   ],
   [
-   "⌂를 누르면 저장한 뒤 메인 화면으로 갑니다. 메인 화면에서는 시작하기(세이브 고르기 · 프리셋 · 파일 불러오기), 맵 메이커, 설정(라이트 · 다크 · 네온 테마, 데스크톱 · 모바일 화면 모드)을 고르고, 🌐로 언어를 바꿉니다. 이 튜토리얼은 시작하기 › 프리셋의 \"튜토리얼 공화국\"으로 언제든 다시 할 수 있어요.",
-   "⌂ saves and takes you to the main screen. There you choose Start (pick a save · preset · load a file), Map Maker and Settings (light · dark · neon theme, desktop · mobile layout), and change the language with 🌐. You can replay this tutorial any time with the \"Tutorial Republic\" preset under Start."
+   "⌂를 누르면 저장한 뒤 메인 화면으로 갑니다. 메인 화면에서는 시작하기(세이브 고르기 · 프리셋 · 파일 불러오기), 맵 메이커, 설정(테마 색, 데스크톱 · 모바일 화면 모드)을 고르고, 🌐로 언어를 바꿉니다. 이 튜토리얼은 시작하기 › 프리셋의 \"튜토리얼 공화국\"으로 언제든 다시 할 수 있어요.",
+   "⌂ saves and takes you to the main screen. There you choose Start (pick a save · preset · load a file), Map Maker and Settings (theme colour, desktop · mobile layout), and change the language with 🌐. You can replay this tutorial any time with the \"Tutorial Republic\" preset under Start."
   ],
   [
    "이념과 서브 이념",
@@ -5407,8 +5391,8 @@ window.DnoLangPacks.en = {
    "Theme · language · tutorial"
   ],
   [
-   "⌂로 메인 화면에 가면 설정(라이트 · 다크 · 네온 테마, 모바일 · 데스크톱 화면)과 🌐 언어(언어 팩 불러오기 포함)를 바꿀 수 있어요. 튜토리얼은 시작하기 › 프리셋의 \"튜토리얼 공화국\"으로 언제든 다시 할 수 있고, 기본 튜토리얼(핵심 흐름)과 세부 튜토리얼(기능별)로 나뉘어 있습니다.",
-   "From the main screen (⌂) you can change Settings (light · dark · neon theme, mobile · desktop layout) and the 🌐 language (including loading language packs). Replay the tutorial any time with the \"Tutorial Republic\" preset under Start; it's split into the basic tutorial (core flow) and detailed tutorials (by feature)."
+   "⌂로 메인 화면에 가면 설정(테마 색, 모바일 · 데스크톱 화면)과 🌐 언어(언어 팩 불러오기 포함)를 바꿀 수 있어요. 튜토리얼은 시작하기 › 프리셋의 \"튜토리얼 공화국\"으로 언제든 다시 할 수 있고, 기본 튜토리얼(핵심 흐름)과 세부 튜토리얼(기능별)로 나뉘어 있습니다.",
+   "From the main screen (⌂) you can change Settings (theme colour, mobile · desktop layout) and the 🌐 language (including loading language packs). Replay the tutorial any time with the \"Tutorial Republic\" preset under Start; it's split into the basic tutorial (core flow) and detailed tutorials (by feature)."
   ],
   [
    "메인 화면 › 설정의 화면(모바일 · 데스크톱)에서 모바일을 고르면 사이드바 대신 화면 아래 탭 바(묶음 + 의석)와 떠 있는 실행 버튼을 씁니다. 세부 항목은 위쪽 칩 줄에서 고르고, \"의석\"을 누르면 시각 화면으로 넘어가요.",
@@ -6003,10 +5987,6 @@ window.DnoLangPacks.en = {
    "Open mods folder"
   ],
   [
-   "MOD THEMES / 모드 테마",
-   "MOD THEMES"
-  ],
-  [
    "\"+ 단일화 추가\"를 눌러 보세요.",
    "Press \"+ Add unification\"."
   ],
@@ -6361,6 +6341,22 @@ window.DnoLangPacks.en = {
   [
    "지금 테마의 색이 채워진 테마 파일을 받습니다. id · name과 색을 바꾼 뒤 데스크톱 앱의 모드 폴더에 폴더째 넣으면 \"모드 테마\"에 나타납니다.",
    "Downloads a theme file filled with the current theme's colours. Change the id, name and colours, then put it in its own folder inside the desktop app's mods folder and it shows up under \"Mod themes\"."
+  ],
+  [
+   "THEME / 테마",
+   "THEME"
+  ],
+  [
+   "기본 (네온)",
+   "Default (Neon)"
+  ],
+  [
+   "(기본 테마에서만 변경 가능)",
+   "(only with the default theme)"
+  ],
+  [
+   "강조 색(테두리·글자 등)에 적용됩니다",
+   "Applies to the accent colour (borders, text, etc.)"
   ]
  ]
 };

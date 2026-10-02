@@ -531,7 +531,7 @@
                 <div><label class="pv-label">노이즈 (±%)</label><input type="number" id="pvLocalNoise" min="0" max="50" value="${L.noise}"></div>
             </div>
             <div class="pv-note">${esc(popStatus(L.chamber, 'region'))}<br>득표율은 지역구 성향(없으면 전국 지지율)에 노이즈를 더해 정하고, 득표수는 인구 × 투표율로 계산합니다.</div>
-            <button type="button" class="pv-run" onclick="PopVote.runLocal()" data-modern-label="개표 시작">&gt;&gt; 개표 시작 &lt;&lt;</button>
+            <button type="button" class="pv-run" onclick="PopVote.runLocal()">&gt;&gt; 개표 시작 &lt;&lt;</button>
             <div id="pvLocalResult"></div>
             <div id="pvHolders"></div>
             ${recordsHtml('local')}`;
@@ -560,7 +560,7 @@
                 <div class="pv-stance"><span class="pv-dot" style="background:${p.color}"></span><span class="pv-stance-name">${esc(p.name)}</span>
                     <select data-pid="${p.id}">${[['yes', '찬성'], ['neutral', '중립'], ['no', '반대']].map(([v, t]) => `<option value="${v}" ${(R.stances[p.id] || 'neutral') === v ? 'selected' : ''}>${t}</option>`).join('')}</select></div>`).join('') : '<div class="pv-dim">정당이 없습니다.</div>'}</div>
             <div class="pv-note">${esc(districtKeys(R.chamber).length ? popStatus(R.chamber, 'district') : `지역구가 없어 전국 하나로 계산합니다 (유권자 ${fmt(NATION_VOTERS)}명, 지지율 탭의 전국 지지율 사용).`)}<br>투표율 기준을 켜면 투표율이 그보다 낮을 때 찬성이 많아도 부결됩니다.</div>
-            <button type="button" class="pv-run" onclick="PopVote.runRef()" data-modern-label="개표 시작">&gt;&gt; 개표 시작 &lt;&lt;</button>
+            <button type="button" class="pv-run" onclick="PopVote.runRef()">&gt;&gt; 개표 시작 &lt;&lt;</button>
             <div id="pvRefResult"></div>
             ${recordsHtml('ref')}`;
         renderRefResult(R.last, ge('pvRefResult'));

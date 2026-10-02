@@ -20,7 +20,6 @@
     <link rel="stylesheet" href="css/tutorial.css">
     <link rel="stylesheet" href="css/popvote.css">
     <link rel="stylesheet" href="css/help.css">
-    <link rel="stylesheet" href="css/modern.css">
 </head>
 <body>
 
@@ -833,7 +832,7 @@
                         <span style="color:#444;">(설정 탭에서 변경)</span>
                     </div>
                     <button id="presElecRunBtn" onclick="runPresidentialElection()"
-                        style="background:var(--tno-neon);color:#000;font-weight:bold;border:none;width:100%;padding:14px;font-size:1.3rem;letter-spacing:2px;box-shadow:0 0 10px var(--tno-neon);cursor:pointer;font-family:inherit;" data-modern-label="개표 시작">&gt;&gt; 개표 시작 &lt;&lt;</button>
+                        style="background:var(--tno-neon);color:#000;font-weight:bold;border:none;width:100%;padding:14px;font-size:1.3rem;letter-spacing:2px;box-shadow:0 0 10px var(--tno-neon);cursor:pointer;font-family:inherit;">&gt;&gt; 개표 시작 &lt;&lt;</button>
                     <div id="presElecResultPanel" style="display:none;margin-top:10px;"></div>
                 </div>
 
@@ -936,7 +935,7 @@
                     </div>
                 </div>
                 <button id="elecRunBtn" onclick="elecRun()"
-                    style="background:var(--tno-neon);color:#000;font-weight:bold;border:none;width:100%;padding:14px;font-size:1.3rem;letter-spacing:2px;margin-top:10px;box-shadow:0 0 10px var(--tno-neon);cursor:pointer;font-family:inherit;" data-modern-label="개표 시작">&gt;&gt; 개표 시작 &lt;&lt;</button>
+                    style="background:var(--tno-neon);color:#000;font-weight:bold;border:none;width:100%;padding:14px;font-size:1.3rem;letter-spacing:2px;margin-top:10px;box-shadow:0 0 10px var(--tno-neon);cursor:pointer;font-family:inherit;">&gt;&gt; 개표 시작 &lt;&lt;</button>
                 <div id="elecMidControls" style="display:none;margin-top:8px;">
                     <div style="display:flex;gap:6px;">
                         <button onclick="elecTogglePause()" id="elecPauseBtn"
@@ -973,7 +972,7 @@
                         <span style="color:#444;">(선거 &gt; 설정 탭에서 변경 — 대선과 방식을 공유합니다)</span>
                     </div>
                     <button id="pmElecRunBtn" onclick="runPmElection()"
-                        style="background:var(--tno-neon);color:#000;font-weight:bold;border:none;width:100%;padding:14px;font-size:1.3rem;letter-spacing:2px;box-shadow:0 0 10px var(--tno-neon);cursor:pointer;font-family:inherit;" data-modern-label="개표 시작">&gt;&gt; 개표 시작 &lt;&lt;</button>
+                        style="background:var(--tno-neon);color:#000;font-weight:bold;border:none;width:100%;padding:14px;font-size:1.3rem;letter-spacing:2px;box-shadow:0 0 10px var(--tno-neon);cursor:pointer;font-family:inherit;">&gt;&gt; 개표 시작 &lt;&lt;</button>
                     <div id="pmElecResultPanel" style="display:none;margin-top:10px;"></div>
                 </div>
                 </div><!-- end contentElecGeneral -->
@@ -1103,8 +1102,8 @@
                         </div>
 
                         <div id="districtSvgInfo" style="display:none;">
-                            <!-- 테두리 색 · 글씨 테두리 색: 네온에서만 고를 수 있음 (라이트/다크는 테마에 맞춘 고정색이라 숨김) -->
-                            <div class="neon-only" style="display:flex;align-items:center;gap:8px;margin-bottom:10px;padding:8px;background:#0a0c10;border:1px solid #222;flex-wrap:wrap;">
+                            <!-- 테두리 색 · 글씨 테두리 색 -->
+                            <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;padding:8px;background:#0a0c10;border:1px solid #222;flex-wrap:wrap;">
                                 <span style="color:#888;font-size:0.85rem;">테두리 색</span>
                                 <input type="color" id="districtSvgStrokeColorInput" value="#00ffff" oninput="districtSvgSetStrokeColor(this.value)" style="width:36px;height:28px;padding:0;border:1px solid #333;background:none;cursor:pointer;">
                                 <input type="text" id="districtSvgStrokeColorHexInput" maxlength="7" placeholder="#00ffff" onchange="districtSvgSetStrokeColorHex(this.value)"
@@ -1112,7 +1111,7 @@
                                 <button id="districtSvgStrokeSyncBtn" onclick="districtSvgSyncStrokeColorWithTheme()" style="background:transparent;border:1px solid #333;color:#888;padding:5px 8px;font-family:inherit;font-size:0.75rem;cursor:pointer;">테마 색과 동기화</button>
                                 <span style="color:#444;font-size:0.75rem;">채우기는 항상 투명입니다</span>
                             </div>
-                            <div class="neon-only" style="display:flex;align-items:center;gap:8px;margin-bottom:10px;padding:8px;background:#0a0c10;border:1px solid #222;flex-wrap:wrap;">
+                            <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;padding:8px;background:#0a0c10;border:1px solid #222;flex-wrap:wrap;">
                                 <span style="color:#888;font-size:0.85rem;">글씨 테두리 색</span>
                                 <input type="color" id="districtSvgAbbrStrokeColorInput" value="#00ffff" oninput="districtSvgSetAbbrStrokeColor(this.value)" style="width:36px;height:28px;padding:0;border:1px solid #333;background:none;cursor:pointer;">
                                 <input type="text" id="districtSvgAbbrStrokeColorHexInput" maxlength="7" placeholder="#00ffff" onchange="districtSvgSetAbbrStrokeColorHex(this.value)"
@@ -1590,7 +1589,7 @@
         </div><!-- end controls-content -->
 
         <div class="theme-panel-box" style="padding: 15px; border-top: 2px solid var(--tno-border); background: #000;">
-            <button class="simulate-btn" onclick="simulate()" data-modern-label="PROTOCOL EXECUTE">&gt;&gt; PROTOCOL EXECUTE &lt;&lt;</button>
+            <button class="simulate-btn" onclick="simulate()">&gt;&gt; PROTOCOL EXECUTE &lt;&lt;</button>
         </div>
     </div>
 
@@ -1854,7 +1853,6 @@
     <script src="js/main.js"></script>
     <script src="js/popvote.js"></script>
     <script src="js/sidenav.js"></script>
-    <script src="js/segmented.js"></script>
     <script src="js/lang.js"></script>
 </body>
 </html>

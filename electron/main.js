@@ -46,8 +46,8 @@ function onScreen(b) {
         return b.x + b.width > a.x + 40 && b.x < a.x + a.width - 40 && b.y >= a.y - 10 && b.y < a.y + a.height - 40;
     });
 }
-// 켤 때 번쩍이는 배경색 — 마지막으로 쓰던 테마에 맞춘다 (라이트 · 다크 · 네온)
-const THEME_BG = { light: '#f4f4f5', dark: '#0c0c0e', tno: '#05070a' };
+// 켤 때 번쩍이는 배경색 — 네온 테마 배경에 맞춘다
+const WINDOW_BG = '#05070a';
 
 
 // ===== 화면 표시 방식 =====
@@ -83,7 +83,7 @@ function createWindow(url) {
         resizable: !borderless,
         maximizable: !borderless,
         show: false, // 첫 화면이 다 그려진 뒤에 보여줘서 빈 창이 번쩍이지 않게
-        backgroundColor: THEME_BG[saved.theme] || THEME_BG.light,
+        backgroundColor: WINDOW_BG,
         autoHideMenuBar: true,
         // 창 · 작업 표시줄 아이콘은 반원 로고 (실행 파일 · 설치 파일 아이콘은 글자가 들어간 전체 로고 — icons/icon.ico)
         icon: path.join(__dirname, '..', 'icons', process.platform === 'win32' ? 'window.ico' : 'window.png'),
@@ -177,24 +177,12 @@ function createWindow(url) {
     win.on('maximize', () => { if (win === mainWin && saved.displayMode === 'windowed') saved.maximized = true; });
     win.on('unmaximize', () => { if (win === mainWin && saved.displayMode === 'windowed') saved.maximized = false; });
 
-    // 닫을 때 창 상태와 마지막 테마를 기록 (표시 방식을 바꾸느라 창을 갈아 끼울 때는 그냥 닫음)
-    let closing = false;
-    win.on('close', event => {
-        if (closing || win !== mainWin) return;
+    // 닫을 때 창 상태를 기록 (표시 방식을 바꾸느라 창을 갈아 끼울 때는 그냥 닫음)
+    win.on('close', () => {
+        if (win !== mainWin) return;
         trackNormal();
-        // 테마는 페이지 저장소에 있으므로 닫기 전에 한 번 읽어 온다 (못 읽어도 그대로 닫힘)
-        event.preventDefault();
-        closing = true;
-        const finish = theme => {
-            if (theme) saved.theme = theme;
-            saved.fullscreen = saved.displayMode === 'fullscreen'; // 예전 버전과의 호환용
-            saveWindowState(saved);
-            win.destroy();
-        };
-        const timer = setTimeout(() => finish(null), 500);
-        win.webContents.executeJavaScript("localStorage.getItem('dnoThemeMode')", true)
-            .then(theme => { clearTimeout(timer); finish(THEME_BG[theme] ? theme : null); })
-            .catch(() => { clearTimeout(timer); finish(null); });
+        saved.fullscreen = saved.displayMode === 'fullscreen'; // 예전 버전과의 호환용
+        saveWindowState(saved);
     });
 
     if (url) win.loadURL(url);
@@ -221,13 +209,8 @@ function setDisplayMode(mode) {
             if (!inside) Object.assign(saved, { x: area.x + Math.round((area.width - w) / 2), y: area.y + Math.round((area.height - h) / 2) });
         }
         const url = win.webContents.getURL();
-        win.webContents.executeJavaScript("localStorage.getItem('dnoThemeMode')", true)
-            .catch(() => null)
-            .then(theme => {
-                if (THEME_BG[theme]) saved.theme = theme;
-                createWindow(url);
-                win.destroy();
-            });
+        createWindow(url);
+        win.destroy();
     } else {
         win.setFullScreen(mode === 'fullscreen');
     }

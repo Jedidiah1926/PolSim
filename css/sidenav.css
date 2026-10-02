@@ -1,16 +1,14 @@
 /* =====================================================================
    세로 탭 사이드바 (js/sidenav.js) — 공통 레이아웃 + 네온 모양
    ---------------------------------------------------------------------
-   데스크톱 화면 모드에서 모든 테마에 표시되고, 그때는 기존 가로 탭 줄(1·2단)을 숨긴다.
-   네온 모드는 패널 머리를 원래대로("MINISTRY OF INTERIOR" 띠 + 그 아래 짙은 회색 국가명 줄) 두고
-   사이드바 머리엔 접기 버튼만 둔다. 라이트/다크에서만 국가명을 사이드바 머리로 옮기고
-   패널 머리를 현재 위치(그룹 › 항목)로 바꾼다 (modern.css 6번 구역).
+   데스크톱 화면 모드에서 표시되고, 그때는 기존 가로 탭 줄(1·2단)을 숨긴다.
+   패널 머리는 원래대로("MINISTRY OF INTERIOR" 띠 + 그 아래 짙은 회색 국가명 줄) 두고
+   사이드바 머리엔 접기 버튼만 둔다.
    모바일 화면 모드에서는 숨기고 기존 가로 탭을 그대로 쓴다.
-   라이트/다크 모양은 css/modern.css 6번 구역이 덮어쓴다.
    ===================================================================== */
 
 /* ---- 표시/숨김 ---- */
-.side-nav, .mn-section-title { display: none; }
+.side-nav { display: none; }
 html:not([data-ui-mode="mobile"]) body.has-side-nav .main-tab-container,
 html:not([data-ui-mode="mobile"]) body.has-side-nav .main-tab-content > .sub-tab-container { display: none !important; }
 
@@ -28,9 +26,6 @@ html:not([data-ui-mode="mobile"]) body.has-side-nav .side-nav {
 html:not([data-ui-mode="mobile"]) body.has-side-nav.side-nav-collapsed .side-nav { flex-basis: 58px; }
 
 .mn-head { display: flex; align-items: flex-start; gap: 6px; flex: 0 0 auto; }
-.mn-brand { flex: 1; min-width: 0; }
-.mn-brand-title,
-.mn-brand-sub { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .mn-collapse { flex: 0 0 auto; width: 32px; height: 32px; padding: 0; display: grid; place-items: center; cursor: pointer; }
 .mn-groups { flex: 1; overflow-y: auto; overflow-x: hidden; display: flex; flex-direction: column; }
 .mn-group-head { width: 100%; display: flex; align-items: center; gap: 8px; cursor: pointer; }
@@ -47,18 +42,15 @@ html:not([data-ui-mode="mobile"]) body.has-side-nav.side-nav-collapsed .side-nav
 /* 글자 대신 아이콘만 있는 항목(⚠ 부정선거) — 다른 항목과 같은 줄 높이 안에서 세로 가운데 */
 .mn-item-icon { display: inline-flex; align-items: center; height: 1.4em; vertical-align: top; }
 .mn-item-icon svg { display: block; }
-.mn-crumb-current { overflow: hidden; text-overflow: ellipsis; }
-.mn-crumb-nation { display: none; }
 
 /* 접힌 사이드바: 그룹 아이콘만 세로로 */
 body.side-nav-collapsed .mn-head { flex-direction: column; align-items: center; }
-body.side-nav-collapsed .mn-brand,
 body.side-nav-collapsed .mn-label,
 body.side-nav-collapsed .mn-chev,
 body.side-nav-collapsed .mn-items { display: none !important; }
 body.side-nav-collapsed .mn-group-head { justify-content: center; }
 
-/* ---- 네온 모양 (라이트/다크는 modern.css가 덮어씀) ---- */
+/* ---- 모양 ---- */
 .side-nav {
     background: var(--tno-panel);
     border: 2px solid var(--tno-border);
@@ -70,16 +62,6 @@ body.side-nav-collapsed .mn-group-head { justify-content: center; }
     border-bottom: 2px solid var(--tno-neon);
     padding: 10px 8px 10px 12px;
 }
-.mn-brand-title {
-    color: var(--tno-neon);
-    text-shadow: 0 0 5px var(--tno-neon);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-size: 1rem;
-    white-space: normal;
-    line-height: 1.25;
-}
-.mn-brand-sub { color: #888; font-size: .85rem; margin-top: 3px; }
 .mn-collapse {
     background: #000;
     border: 1px solid var(--tno-border);
@@ -144,8 +126,7 @@ body.side-nav-collapsed .mn-group.active .mn-group-head {
     box-shadow: 0 0 8px color-mix(in srgb, var(--tone) 50%, transparent), inset 0 0 0 1px var(--tone);
 }
 
-/* 네온 모드는 패널 머리의 "MINISTRY OF INTERIOR" 띠와 그 아래 국가명 줄을 그대로 쓰므로 사이드바 머리엔 접기 버튼만 */
-.mn-brand { display: none; }
+/* 패널 머리의 "MINISTRY OF INTERIOR" 띠와 그 아래 국가명 줄을 그대로 쓰므로 사이드바 머리엔 접기 버튼만 */
 .mn-head { justify-content: flex-end; }
 
 /* =====================================================================
@@ -216,9 +197,6 @@ html[data-ui-mode="mobile"] body.has-side-nav .mobile-exec-fab {
     touch-action: manipulation;
 }
 .fab-neon { font-size: 1.3rem; letter-spacing: 2px; font-weight: bold; white-space: nowrap; }
-.fab-icon, .fab-label { display: none; }
-.fab-icon { font-size: 14px; line-height: 1; }
-.fab-label { font-size: 15px; line-height: 1; }
 .mobile-exec-fab:active { transform: scale(.985); }
 
 /* ---- 하위 탭 → 붙어 따라오는 가로 스크롤 칩 줄 ---- */

@@ -1266,7 +1266,7 @@
             cvs.width = totalW + pad*2;
             cvs.height = totalH + pad*2;
             const ctx = cvs.getContext('2d');
-            ctx.fillStyle = tc('#000', '--m-surface');
+            ctx.fillStyle = '#000';
             ctx.fillRect(0, 0, cvs.width, cvs.height);
             ctx.textBaseline = 'middle';
             ctx.textAlign = 'center';
@@ -1285,16 +1285,16 @@
                     cy += labelH + gapSm;
 
                     const photoX = x + (cardW - photoW)/2;
-                    ctx.fillStyle = tc('#000', '--m-surface-2');
+                    ctx.fillStyle = '#000';
                     ctx.fillRect(photoX, cy, photoW, photoH);
                     const img = photoMap.get(c);
                     if(img) drawImageCover(ctx, img, photoX, cy, photoW, photoH);
                     else {
-                        ctx.fillStyle = tc('#2a3a3a', '--m-text-4');
+                        ctx.fillStyle = '#2a3a3a';
                         ctx.font = `${Math.round(photoH*0.4)}px ${font}`;
                         ctx.fillText('👤', cx, cy + photoH/2, photoW);
                     }
-                    ctx.strokeStyle = tc('#2a2a2a', '--m-border');
+                    ctx.strokeStyle = '#2a2a2a';
                     ctx.lineWidth = Math.max(1, Math.round(scale));
                     ctx.strokeRect(photoX + 0.5, cy + 0.5, photoW - 1, photoH - 1);
                     cy += photoH + gapSm;
@@ -1316,7 +1316,7 @@
                     ctx.strokeRect(badgeX + 0.5, cy + 0.5, badgeW - 1, badgeH - 1);
                     ctx.fillStyle = partyColor;
                     ctx.shadowColor = partyColor;
-                    ctx.shadowBlur = isModernTheme() ? 0 : Math.round(8*scale);
+                    ctx.shadowBlur = Math.round(8*scale);
                     ctx.fillText(partyName, cx, cy + badgeH/2, badgeW - Math.round(8*scale));
                     ctx.shadowBlur = 0;
                     ctx.shadowColor = 'transparent';
@@ -3935,18 +3935,8 @@
                 clone.querySelectorAll('.leader-photo-box img').forEach(img => img.remove());
             }
 
-            // 모던(라이트/다크) 테마일 땐 html[data-theme-*] 선택자를 래퍼 div의 클래스로 바꿔,
-            // SVG 안(html 요소 없음)에서도 화면과 같은 테마 규칙이 적용되게 한다
-            const modern = isModernTheme();
-            const themeMode = document.documentElement.getAttribute('data-theme-mode');
-            let css = getExportInlineCss();
-            if(modern) {
-                css = css.replaceAll('html[data-theme-family="modern"]', '.export-theme-modern')
-                         .replaceAll('html[data-theme-mode="light"]', '.export-theme-light')
-                         .replaceAll('html[data-theme-mode="dark"]', '.export-theme-dark');
-            }
+            const css = getExportInlineCss();
             const pal = exportPalette();
-            const wrapClass = modern ? ` class="export-theme-modern export-theme-${themeMode}"` : '';
             const html = new XMLSerializer().serializeToString(clone);
             const headerH = headerInfo ? EXPORT_HEADER_H : 0;
             const totalH = rect.height + headerH;
@@ -3957,7 +3947,7 @@
             return `<svg xmlns="http://www.w3.org/2000/svg" width="${rect.width}" height="${totalH}" viewBox="0 0 ${rect.width} ${totalH}">`
                 + `<style><![CDATA[${css}]]></style>`
                 + buildExportHeaderSvgMarkup(headerInfo, rect.width, headerH)
-                + `<foreignObject y="${headerH}" width="100%" height="${rect.height}"><div xmlns="http://www.w3.org/1999/xhtml"${wrapClass} style="width:${rect.width}px;background:${pal.bg};font-family:${pal.font.replace(/"/g, "'")};">`
+                + `<foreignObject y="${headerH}" width="100%" height="${rect.height}"><div xmlns="http://www.w3.org/1999/xhtml" style="width:${rect.width}px;background:${pal.bg};font-family:${pal.font.replace(/"/g, "'")};">`
                 + `${html}</div></foreignObject></svg>`;
         }
 
@@ -4453,13 +4443,12 @@
                 }
                 return;
             }
-            const modernFont = isModernTheme() ? tc('', '--m-font') : null;
-            ctx.fillStyle = tc("#fff", '--m-text');
-            ctx.font = modernFont ? `700 30px ${modernFont}` : "30px 'NeoDunggeunmo'";
+            ctx.fillStyle = "#fff";
+            ctx.font = "30px 'NeoDunggeunmo'";
             ctx.textAlign = "center";
             ctx.fillText(total, CX, CY);
-            ctx.font = modernFont ? `500 13px ${modernFont}` : "16px 'NeoDunggeunmo'";
-            ctx.fillStyle = tc("#fff", '--m-text-3');
+            ctx.font = "16px 'NeoDunggeunmo'";
+            ctx.fillStyle = "#fff";
             ctx.fillText("SEATS", CX, CY + 25);
         }
 
@@ -4577,7 +4566,7 @@
                 if(hoveredSeat[chamber] === i) {
                     ctx.beginPath();
                     ctx.arc(d.x, d.y, d.r * 1.14, 0, Math.PI*2);
-                    ctx.strokeStyle = tc('#fff', '--m-text');
+                    ctx.strokeStyle = '#fff';
                     ctx.lineWidth = 1.5;
                     ctx.shadowColor = 'rgba(255,255,255,0.6)';
                     ctx.shadowBlur = 6;
@@ -4594,37 +4583,22 @@
         }
 
 
-        // ===== 캔버스 테마 색 =====
-        // 캔버스는 CSS 변수를 못 쓰므로, 모던(라이트/다크) 모드일 때만 디자인 토큰의 실제 값을 읽어 쓰고
-        // 네온 모드에서는 넘겨받은 기존 색을 그대로 돌려준다 (네온 모드 화면·내보내기는 픽셀 단위로 그대로)
-        let canvasTokenCache = null;
-        function isModernTheme() {
-            return document.documentElement.getAttribute('data-theme-family') === 'modern';
-        }
-        function tc(tnoColor, token) {
-            if(!isModernTheme()) return tnoColor;
-            const mode = document.documentElement.getAttribute('data-theme-mode');
-            if(!canvasTokenCache || canvasTokenCache.mode !== mode) canvasTokenCache = { mode, vals: {} };
-            const vals = canvasTokenCache.vals;
-            if(!(token in vals)) vals[token] = getComputedStyle(document.documentElement).getPropertyValue(token).trim();
-            return vals[token] || tnoColor;
-        }
         // 내보내기(PNG/JPG/SVG) 색·폰트 — 화면과 같은 테마로 내보낸다
         function exportPalette() {
             return {
-                bg: tc('#0a0c10', '--m-surface'),
-                card: tc('#000', '--m-surface'),
-                cardBorder: isModernTheme() ? tc('', '--m-border') : null,
-                photoBg: tc('#0a0c10', '--m-surface-2'),
-                photoStroke: tc('#222', '--m-border'),
-                rule: tc('#333', '--m-border'),
-                text: tc('#eee', '--m-text'),
-                text2: tc('#ccc', '--m-text-2'),
-                text3: tc('#888', '--m-text-3'),
-                pill: tc('#aaa', '--m-text-2'),
-                tag: tc('#fff', '--m-text'),
-                font: isModernTheme() ? tc('', '--m-font') : "'NeoDunggeunmo','VT323',monospace",
-                svgFont: isModernTheme() ? tc('', '--m-font').replace(/"/g, "'") : 'NeoDunggeunmo, VT323, monospace',
+                bg: '#0a0c10',
+                card: '#000',
+                cardBorder: null,
+                photoBg: '#0a0c10',
+                photoStroke: '#222',
+                rule: '#333',
+                text: '#eee',
+                text2: '#ccc',
+                text3: '#888',
+                pill: '#aaa',
+                tag: '#fff',
+                font: "'NeoDunggeunmo','VT323',monospace",
+                svgFont: 'NeoDunggeunmo, VT323, monospace',
             };
         }
 
@@ -4680,13 +4654,10 @@
             if(districtCvs) canvasResizeObserver.observe(districtCvs);
         });
 
-        // 다른 탭(설정 화면)에서 테마를 바꾸면, 캔버스에 직접 그린 색(좌석 수 글씨·빈 지역구 칸 등)도 새 테마로 다시 그린다
+        // 다른 탭(설정 화면)에서 테마를 바꾸면, 캔버스에 직접 그린 부분도 새 테마 색으로 다시 그린다
         window.addEventListener('thememodechange', () => {
-            canvasTokenCache = null;
             simulate();
             document.querySelectorAll('canvas').forEach(cvs => { if(cvs.offsetParent) redrawCanvasForCurrentSize(cvs); });
-            if(document.getElementById('regionMapWrap')?.offsetParent) renderRegionMap(); // 권역 지도 바탕색(라이트/다크)
-            if(districtSvgMap) { districtUpdateModeUI(); districtRenderMap(); } // 지역구 테두리 색(라이트/다크 고정색)
         });
         let suppressAutosaveOnUnload = false;
 
@@ -6106,7 +6077,7 @@
             });
             resizer.addEventListener('pointermove', e => {
                 if(!dragging) return;
-                // 패널 왼쪽 끝 기준으로 폭을 잰다 — 모던 모드에선 왼쪽에 세로 탭 사이드바가 있어 body 왼쪽과 다름
+                // 패널 왼쪽 끝 기준으로 폭을 잰다 — 왼쪽에 세로 탭 사이드바가 있으면 body 왼쪽과 다름
                 const controlsLeft = controls.getBoundingClientRect().left;
                 const maxWidth = window.innerWidth - controlsLeft - MIN_DISPLAY_WIDTH - Math.round(resizer.getBoundingClientRect().width);
                 const width = Math.max(MIN_WIDTH, Math.min(maxWidth, e.clientX - controlsLeft));
@@ -6392,8 +6363,7 @@
             updateSplitDissolutionUI();
         }
 
-        // 네온 모드의 터미널 표기("> 제목", ">> 버튼 <<")에서 기호만 span.tno-prompt로 감싼다 —
-        // 네온 모드에선 글자 그대로 보이고, 모던(라이트/다크) 모드는 css/modern.css가 기호를 숨긴다
+        // 터미널 표기("> 제목", ">> 버튼 <<")에서 기호만 span.tno-prompt로 감싼다
         function setPromptText(el, text, withSuffix = false) {
             if(!el) return;
             const pre = document.createElement('span');
@@ -7105,7 +7075,7 @@
             const grid = districtGrid[chamber] || {};
             const keys = Object.keys(grid);
             if(keys.length === 0) {
-                ctx.fillStyle = tc('#444', '--m-text-4');
+                ctx.fillStyle = '#444';
                 ctx.font = '14px monospace';
                 ctx.textAlign = 'center';
                 ctx.fillText('설정된 지역구가 없습니다', w/2, h/2);
@@ -9803,9 +9773,8 @@
             }
             const shapeEls = [];
             let selectedOverlayEl = null;
-            // innerGlow 바탕: 라이트 모드는 흰 바탕에 옅게, 다크/네온은 어두운 바탕에 옅게 섞는다
-            const glowOnLight = document.documentElement.getAttribute('data-theme-mode') === 'light';
-            const glowMix = c => glowOnLight ? `color-mix(in srgb, ${c} 38%, #ffffff)` : `color-mix(in srgb, ${c} 22%, #06070a)`;
+            // innerGlow 바탕: 어두운 바탕에 옅게 섞는다
+            const glowMix = c => `color-mix(in srgb, ${c} 22%, #06070a)`;
             // groupOf(key): 같은 묶음(예: 권역)끼리는 지역구 사이 경계선을 지우고 묶음 바깥 테두리만 그린다
             const groups = new Map(); // groupId → { color, shapes: [] }
             map.shapes.forEach(s => {
@@ -9836,13 +9805,11 @@
                     el.addEventListener('click', () => opts.onClickKey?.(s.key));
                     if(opts.groupOf && shownFill !== 'transparent') {
                         // 권역 지도: 마우스를 올리면 채움색만 밝게 — 경계선은 그대로 둬서 옆 권역·지역구 경계가 계속 보이게
-                        // 라이트는 어둡게(밝히면 흰 바탕에 묻힘), 다크·네온은 밝게
-                        const hoverFill = glowOnLight ? `color-mix(in srgb, ${shownFill} 80%, #000000)` : `color-mix(in srgb, ${shownFill} 70%, #ffffff)`;
+                        const hoverFill = `color-mix(in srgb, ${shownFill} 70%, #ffffff)`;
                         el.addEventListener('mouseenter', () => { el.setAttribute('fill', hoverFill); if(groupId != null) el.setAttribute('stroke', hoverFill); });
                         el.addEventListener('mouseleave', () => { el.setAttribute('fill', shownFill); if(groupId != null) el.setAttribute('stroke', shownFill); });
                     } else {
-                        // 라이트 모드는 밝히면 흰 바탕과 구분이 안 되므로 어둡게
-                        el.addEventListener('mouseenter', () => { el.style.filter = glowOnLight ? 'brightness(0.8)' : 'brightness(1.5)'; });
+                        el.addEventListener('mouseenter', () => { el.style.filter = 'brightness(1.5)'; });
                         el.addEventListener('mouseleave', () => { el.style.filter = ''; });
                     }
                 }
@@ -10283,11 +10250,8 @@
             if(shapeCount) shapeCount.textContent = districtSvgMap ? String(districtSvgMap.shapes.length) : '0';
             if(districtSvgMap) {
                 const color = districtSvgEffectiveStroke(districtSvgMap);
-                const locked = districtStrokeLocked();
-                if(strokeInput) { strokeInput.value = color.toLowerCase(); strokeInput.disabled = locked; }
-                if(strokeHexInput) { strokeHexInput.value = color.toUpperCase(); strokeHexInput.disabled = locked; }
-                const syncBtn = document.getElementById('districtSvgStrokeSyncBtn');
-                if(syncBtn) syncBtn.style.display = locked ? 'none' : '';
+                if(strokeInput) strokeInput.value = color.toLowerCase();
+                if(strokeHexInput) strokeHexInput.value = color.toUpperCase();
                 const abbrColor = districtSvgMap.abbrStrokeColor || color;
                 if(abbrStrokeInput) abbrStrokeInput.value = abbrColor;
                 if(abbrStrokeHexInput) abbrStrokeHexInput.value = abbrColor.toUpperCase();
@@ -10546,28 +10510,16 @@
             reader.readAsText(file);
         }
 
-        // 지역구 지도 테두리 색 — 라이트/다크는 테마에 맞춘 고정색(바꿀 수 없음), 네온만 사용자가 고른 색
-        const DISTRICT_STROKE_LIGHT = '#A3A3A3';
-        const DISTRICT_STROKE_DARK = '#5C6370';
-        function districtStrokeLocked() { return document.documentElement.getAttribute('data-theme-family') === 'modern'; }
-        // 지역구 약칭 글씨(흰 글씨)의 테두리 색 — 라이트/다크는 고정색, 네온만 사용자가 고른 색(없으면 지도 테두리 색)
-        const DISTRICT_ABBR_STROKE_LIGHT = '#52525B';
-        const DISTRICT_ABBR_STROKE_DARK = '#404245';
+        // 지역구 지도 테두리 색 — 사용자가 고른 색
+        // 지역구 약칭 글씨(흰 글씨)의 테두리 색 — 사용자가 고른 색(없으면 지도 테두리 색)
         function districtSvgEffectiveAbbrStroke(map) {
-            const mode = document.documentElement.getAttribute('data-theme-mode');
-            if(mode === 'light') return DISTRICT_ABBR_STROKE_LIGHT;
-            if(mode === 'dark') return DISTRICT_ABBR_STROKE_DARK;
             return (map && map.abbrStrokeColor) || districtSvgEffectiveStroke(map);
         }
         function districtSvgEffectiveStroke(map) {
-            const mode = document.documentElement.getAttribute('data-theme-mode');
-            if(mode === 'light') return DISTRICT_STROKE_LIGHT;
-            if(mode === 'dark') return DISTRICT_STROKE_DARK;
             return (map && map.strokeColor) || '#00ffff';
         }
 
         function districtSvgSetStrokeColor(color) {
-            if(districtStrokeLocked()) { districtUpdateModeUI(); return; }
             const map = districtSvgMapFor(districtChamber);
             if(!map) return;
             map.strokeColor = color;
@@ -10587,12 +10539,10 @@
         // 지역구 테두리 색을 현재 사이트 테마 색(설정에서 고른 색)과 동일하게 맞춤
         function districtSvgSyncStrokeColorWithTheme() {
             if(typeof getThemeColor !== 'function') return;
-            if(districtStrokeLocked()) return;
             districtSvgSetStrokeColor(getThemeColor());
         }
 
         function districtSvgSetAbbrStrokeColor(color) {
-            if(districtStrokeLocked()) { districtUpdateModeUI(); return; } // 라이트/다크는 고정색
             const map = districtSvgMapFor(districtChamber);
             if(!map) return;
             map.abbrStrokeColor = color;
@@ -11127,7 +11077,7 @@
                         ctx.stroke();
                         ctx.shadowBlur = 0;
                     } else {
-                        ctx.strokeStyle = tc('#1a1d22', '--m-border');
+                        ctx.strokeStyle = '#1a1d22';
                         ctx.lineWidth = 0.8;
                         ctx.stroke();
                     }
@@ -11434,7 +11384,7 @@
             const isAll = partyId === '__all__';
             const w = cvs.clientWidth || 260;
             const bounds = tendencyGetBounds();
-            if(!bounds) { cvs.width=w; cvs.height=60; const c=cvs.getContext('2d'); c.fillStyle=tc('#333', '--m-text-3'); c.font='12px monospace'; c.fillText('지역구를 먼저 설정하세요',8,35); return; }
+            if(!bounds) { cvs.width=w; cvs.height=60; const c=cvs.getContext('2d'); c.fillStyle='#333'; c.font='12px monospace'; c.fillText('지역구를 먼저 설정하세요',8,35); return; }
 
             const { minQ, maxQ, minR, maxR } = bounds;
             // flat-top: x방향은 q, y방향은 r
@@ -11490,8 +11440,8 @@
                             ctx.fillText(bestVal+'%', cx, cy);
                         }
                     } else {
-                        ctx.fillStyle = tc('#111', '--m-surface-3'); ctx.fill();
-                        ctx.strokeStyle = tc('#222', '--m-border'); ctx.lineWidth=0.8; ctx.stroke();
+                        ctx.fillStyle = '#111'; ctx.fill();
+                        ctx.strokeStyle = '#222'; ctx.lineWidth=0.8; ctx.stroke();
                     }
                 } else {
                     const val = tendencyData[partyId]?.[key] || 0;
@@ -11510,8 +11460,8 @@
                             ctx.fillText(val+'%', cx, cy);
                         }
                     } else {
-                        ctx.fillStyle = tc('#111', '--m-surface-3'); ctx.fill();
-                        ctx.strokeStyle = tc('#1a1d22', '--m-border'); ctx.lineWidth=0.8; ctx.stroke();
+                        ctx.fillStyle = '#111'; ctx.fill();
+                        ctx.strokeStyle = '#1a1d22'; ctx.lineWidth=0.8; ctx.stroke();
                     }
                 }
                 // 지역구 구분 테두리 오버레이 (하원=네온, 상원=골드, 삼원=보라)
@@ -13097,13 +13047,13 @@
                         if(!districtGrid[ch][key]) return 'transparent';
                         const regionId = districtRegionMap[ch]?.[key];
                         const region = (regions[ch]||[]).find(r => r.id === regionId);
-                        // 미배정 칸: 라이트 모드는 흰 바탕에서 보이도록 어두운 회색, 다크/네온은 밝은 회색
-                        return region ? region.color : (document.documentElement.getAttribute('data-theme-mode') === 'light' ? 'rgba(0,0,0,0.35)' : 'rgba(255,255,255,0.25)');
+                        // 미배정 칸: 어두운 바탕에서 보이도록 밝은 회색
+                        return region ? region.color : 'rgba(255,255,255,0.25)';
                     },
                     // 미배정 칸도 권역과 같은 결로 — 빛 효과 없는 단색 + 옅은 경계선 (어느 칸인지는 보이게)
                     ungroupedFill: key => !districtGrid[ch][key] ? 'transparent'
-                        : (document.documentElement.getAttribute('data-theme-mode') === 'light' ? '#e4e6ea' : '#2b2f3a'),
-                    ungroupedStroke: document.documentElement.getAttribute('data-theme-mode') === 'light' ? '#b8bcc4' : '#4d5462',
+                        : '#2b2f3a',
+                    ungroupedStroke: '#4d5462',
                     // 같은 권역의 지역구끼리는 경계선을 지우고 권역 둘레만 그린다
                     groupOf: key => {
                         if(!districtGrid[ch][key]) return null;
@@ -13151,7 +13101,7 @@
             const keys = regionChamberKeys(chamber);
             const w = cvs.clientWidth || 260;
             const bounds = regionGetBounds(chamber);
-            if(!bounds) { cvs.width=w; cvs.height=60; const c=cvs.getContext('2d'); c.fillStyle=tc('#333', '--m-text-3'); c.font='12px monospace'; c.fillText('지역구를 먼저 설정하세요',8,35); return; }
+            if(!bounds) { cvs.width=w; cvs.height=60; const c=cvs.getContext('2d'); c.fillStyle='#333'; c.font='12px monospace'; c.fillText('지역구를 먼저 설정하세요',8,35); return; }
             const { minQ, maxQ, minR, maxR } = bounds;
             const spanQ = maxQ - minQ + 1, spanR = maxR - minR + 1;
             const sizeByW = w / (spanQ * 1.5 + 0.5);
@@ -13184,8 +13134,8 @@
                     ctx.lineWidth = isActive ? 2 : 1;
                     ctx.stroke();
                 } else {
-                    ctx.fillStyle = tc('#111', '--m-surface-3'); ctx.fill();
-                    ctx.strokeStyle = tc('#333', '--m-border'); ctx.lineWidth = 0.8; ctx.stroke();
+                    ctx.fillStyle = '#111'; ctx.fill();
+                    ctx.strokeStyle = '#333'; ctx.lineWidth = 0.8; ctx.stroke();
                 }
             });
         }
@@ -13502,7 +13452,7 @@
                 ctx.moveTo(...corners[0]);
                 corners.slice(1).forEach(c => ctx.lineTo(...c));
                 ctx.closePath();
-                ctx.fillStyle = tc('#0a0c10', '--m-surface-2');
+                ctx.fillStyle = '#0a0c10';
                 ctx.fill();
                 ctx.strokeStyle = '#222';
                 ctx.lineWidth = 0.8;
@@ -13648,7 +13598,7 @@
             const runBtn   = document.getElementById('elecRunBtn');
             const midCtrl  = document.getElementById('elecMidControls');
             const postBtns = document.getElementById('elecPostBtns');
-            runBtn.style.background='#222'; runBtn.style.color='#888'; runBtn.textContent='>> 개표 중... <<'; runBtn.dataset.modernLabel='개표 중...';
+            runBtn.style.background='#222'; runBtn.style.color='#888'; runBtn.textContent='>> 개표 중... <<';
             if(midCtrl)  midCtrl.style.display='block';
             if(postBtns) postBtns.style.display='none';
 
@@ -13723,7 +13673,7 @@
             // (이 조건 없이 막으면 지역구만 개표할 때 안내 문구 하나 없이 조용히 실패한 것처럼 보임)
             if(propSeats > 0 && !isRegionalList && wTotal<=0) {
                 elecRunning=false;
-                runBtn.style.background='var(--tno-neon)'; runBtn.style.color='#000'; runBtn.textContent='>> 개표 시작 <<'; runBtn.dataset.modernLabel='개표 시작';
+                runBtn.style.background='var(--tno-neon)'; runBtn.style.color='#000'; runBtn.textContent='>> 개표 시작 <<';
                 showCustomAlert('지지율을 입력해 주세요.\n각 정당의 지지율(%) 칸에 숫자를 입력하세요.');
                 return;
             }
@@ -13916,7 +13866,7 @@
             if(chamber === 'house' && !isByElection && !isRerun) autoAdvanceTermOnElection();
 
             elecRunning=false;
-            runBtn.style.background='var(--tno-neon)'; runBtn.style.color='#000'; runBtn.textContent='>> 개표 시작 <<'; runBtn.dataset.modernLabel='개표 시작';
+            runBtn.style.background='var(--tno-neon)'; runBtn.style.color='#000'; runBtn.textContent='>> 개표 시작 <<';
         }
 
         // counts: 개표 중 집계({ partyId: 석 }) — 주면 실제 의석 대신 이것으로 그린다
@@ -14241,7 +14191,7 @@
                 if(hoveredSeat[chamber] === i) {
                     ctx.beginPath();
                     ctx.arc(pt.x, pt.y, dotR * 1.14, 0, Math.PI*2);
-                    ctx.strokeStyle = tc('#fff', '--m-text');
+                    ctx.strokeStyle = '#fff';
                     ctx.lineWidth = 1.5;
                     ctx.shadowColor = 'rgba(255,255,255,0.6)';
                     ctx.shadowBlur = 6;

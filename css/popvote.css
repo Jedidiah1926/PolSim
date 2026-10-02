@@ -1,4 +1,4 @@
-/* ===== 지방선거 · 국민투표 (js/popvote.js) — 기본은 네온, 라이트/다크는 아래 modern 규칙 ===== */
+/* ===== 지방선거 · 국민투표 (js/popvote.js) ===== */
 .pv-form { --pv-yes: #16a34a; --pv-no: #dc2626; }
 .pv-form input[type="text"], .pv-form input[type="number"], .pv-form select { width: 100%; box-sizing: border-box; }
 .pv-grid2 { display: grid; grid-template-columns: 1fr 110px; gap: 8px; margin-bottom: 10px; }
@@ -41,23 +41,6 @@
 .pv-record-open { flex: 1; min-width: 0; text-align: left; cursor: pointer; font-family: inherit; font-size: .82rem; background: transparent; border: 1px solid #333; color: #aaa; padding: 5px 8px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .pv-record-del { flex: 0 0 auto; cursor: pointer; background: transparent; border: 1px solid #442222; color: #aa5555; font-family: inherit; padding: 0 8px; }
 
-html[data-theme-family="modern"] .pv-label { color: var(--m-text-3); font-size: 12px; font-weight: 600; }
-html[data-theme-family="modern"] .pv-dim { color: var(--m-text-3); }
-html[data-theme-family="modern"] .pv-note { background: var(--m-surface-2); border: none; border-radius: 10px; color: var(--m-text-2); font-size: 12px; }
-html[data-theme-family="modern"] .pv-run { background: var(--m-accent); color: var(--m-on-accent); box-shadow: none; border-radius: 12px; font-size: 15px; letter-spacing: 0; }
-html[data-theme-family="modern"] .pv-stance { background: var(--m-surface-2); border: none; border-radius: 9px; }
-html[data-theme-family="modern"] .pv-stance-name { color: var(--m-text); }
-html[data-theme-family="modern"] .pv-result { background: var(--m-surface); border: 1px solid var(--m-border); border-radius: 14px; }
-html[data-theme-family="modern"] .pv-result-title { color: var(--m-text); font-weight: 700; font-size: 15px; }
-html[data-theme-family="modern"] .pv-table th { color: var(--m-text-3); border-bottom-color: var(--m-border); font-size: 12px; }
-html[data-theme-family="modern"] .pv-table td { color: var(--m-text); border-bottom-color: var(--m-border); }
-html[data-theme-family="modern"] .pv-details summary { color: var(--m-text-2); }
-html[data-theme-family="modern"] .pv-unit { background: var(--m-surface-2); color: var(--m-text); border-radius: 0 8px 8px 0; }
-html[data-theme-family="modern"] .pv-bar { background: var(--m-surface-3); border-radius: 7px; }
-html[data-theme-family="modern"] .pv-ref-nums { color: var(--m-text); }
-html[data-theme-family="modern"] .pv-records { border-top-color: var(--m-border); }
-html[data-theme-family="modern"] .pv-record-open { border: none; border-radius: 8px; background: var(--m-surface-2); color: var(--m-text); }
-html[data-theme-family="modern"] .pv-record-del { border: none; border-radius: 8px; background: transparent; color: var(--m-danger); }
 
 /* 현직 단체장 */
 .pv-apply { width: 100%; margin: 8px 0 4px; padding: 9px; cursor: pointer; font-family: inherit; font-size: .9rem; background: var(--tno-neon); color: #000; border: none; }
@@ -80,13 +63,6 @@ html[data-theme-family="modern"] .pv-record-del { border: none; border-radius: 8
 .pv-holder-card-main { display: flex; flex-direction: column; min-width: 0; font-size: .85rem; color: #ccc; }
 .pv-holder-card-main > * { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
-html[data-theme-family="modern"] .pv-apply { background: var(--m-accent); color: var(--m-on-accent); border-radius: 10px; font-weight: 600; }
-html[data-theme-family="modern"] .pv-applied { color: var(--m-success); font-weight: 600; font-size: 13px; }
-html[data-theme-family="modern"] .pv-holders-map { border: none; border-radius: 10px; background: var(--m-surface-2); color: var(--m-text); font-weight: 600; }
-html[data-theme-family="modern"] .pv-holder, html[data-theme-family="modern"] .pv-holder-card { background: var(--m-surface-2); border-radius: 0 10px 10px 0; }
-html[data-theme-family="modern"] .pv-holder-photo { background: var(--m-surface-3); border: none; border-radius: 8px; }
-html[data-theme-family="modern"] .pv-holder-unit, html[data-theme-family="modern"] .pv-holder-card-main { color: var(--m-text); }
-html[data-theme-family="modern"] .pv-count-chip { border: none; border-radius: 999px; background: var(--m-surface-2); color: var(--m-text); padding: 3px 10px; }
 
 /* 뽑는 자리 (권역 · 지역구) */
 .pv-offices { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
@@ -116,11 +92,3 @@ html[data-theme-family="modern"] .pv-count-chip { border: none; border-radius: 9
 .pv-hgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 6px; margin-left: 16px; }
 @media (max-width: 520px) { .pv-hgrid { margin-left: 0; } }
 
-html[data-theme-family="modern"] .pv-office { color: var(--m-text-2); font-size: 13px; }
-html[data-theme-family="modern"] .pv-level-head { color: var(--m-text); font-weight: 700; font-size: 13px; }
-html[data-theme-family="modern"] .pv-holder-group, html[data-theme-family="modern"] .pv-hgroup { border-top-color: var(--m-border); }
-html[data-theme-family="modern"] .pv-holder-sub summary, html[data-theme-family="modern"] .pv-holder-nogroup { color: var(--m-text-3); }
-html[data-theme-family="modern"] .pv-hcard { background: var(--m-surface-2); border-radius: 0 10px 10px 0; }
-html[data-theme-family="modern"] .pv-hcard-office, html[data-theme-family="modern"] .pv-hcard-party { color: var(--m-text-3); font-size: 12px; }
-html[data-theme-family="modern"] .pv-hcard-name { color: var(--m-text); font-weight: 600; font-size: 14px; }
-html[data-theme-family="modern"] .pv-hcard-big .pv-hcard-name { color: var(--m-text); font-size: 17px; font-weight: 700; }

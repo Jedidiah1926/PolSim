@@ -7,7 +7,6 @@
 (function () {
     if (window.DnoUI) return;
     const t = s => (window.DnoLang && typeof DnoLang.t === 'function' ? DnoLang.t(String(s)) : String(s));
-    const isModern = () => document.documentElement.getAttribute('data-theme-family') === 'modern';
 
     const css = `
 .dno-tip {
@@ -20,10 +19,6 @@
     font-family: 'NeoDunggeunmo', 'VT323', monospace;
 }
 .dno-tip.show { opacity: 1; transform: none; }
-html[data-theme-family="modern"] .dno-tip {
-    background: var(--m-text, #18181b); color: var(--m-surface, #fff); border: none; border-radius: 8px;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, .18); font-family: var(--m-font, inherit); font-weight: 500;
-}
 .dno-dialog-overlay {
     position: fixed; inset: 0; z-index: 100001; display: flex; align-items: center; justify-content: center;
     padding: 16px; background: rgba(0, 0, 0, .72);
@@ -46,22 +41,6 @@ html[data-theme-family="modern"] .dno-tip {
 .dno-dialog-btn:hover, .dno-dialog-btn:focus-visible { background: color-mix(in srgb, var(--dno-dlg-c) 24%, transparent); outline: none; }
 .dno-dialog-btn.cancel { background: transparent; color: #888; border-color: #333; }
 .dno-dialog-btn.cancel:hover, .dno-dialog-btn.cancel:focus-visible { color: #ddd; border-color: #666; }
-html[data-theme-family="modern"] .dno-dialog-overlay { background: rgba(0, 0, 0, .4); }
-html[data-theme-family="modern"] .dno-dialog {
-    --dno-dlg-c: var(--m-accent, #18181b);
-    background: var(--m-surface, #fff); color: var(--m-text, #18181b); border: 1px solid var(--m-border, #e4e4e7);
-    border-radius: 16px; box-shadow: 0 20px 50px rgba(0, 0, 0, .25); font-family: var(--m-font, inherit); padding: 22px;
-}
-html[data-theme-family="modern"] .dno-dialog.tone-warn { --dno-dlg-c: var(--m-gold, #d97706); }
-html[data-theme-family="modern"] .dno-dialog.tone-danger { --dno-dlg-c: var(--m-danger, #dc2626); }
-html[data-theme-family="modern"] .dno-dialog-title { color: var(--m-text, #18181b); font-weight: 700; letter-spacing: 0; }
-html[data-theme-family="modern"] .dno-dialog-msg { color: var(--m-text-2, #52525b); }
-html[data-theme-family="modern"] .dno-dialog-btn {
-    border: none; border-radius: 10px; font-weight: 600; background: var(--dno-dlg-c); color: var(--m-surface, #fff);
-}
-html[data-theme-family="modern"] .dno-dialog-btn:hover, html[data-theme-family="modern"] .dno-dialog-btn:focus-visible { filter: brightness(1.12); background: var(--dno-dlg-c); }
-html[data-theme-family="modern"] .dno-dialog-btn.cancel { background: var(--m-surface-2, #f4f4f5); color: var(--m-text, #18181b); }
-html[data-theme-family="modern"] .dno-dialog-btn.cancel:hover, html[data-theme-family="modern"] .dno-dialog-btn.cancel:focus-visible { background: var(--m-surface-3, #e4e4e7); filter: none; }
 `;
     function injectStyle() {
         if (document.getElementById('dnoDialogsStyle')) return;
@@ -124,11 +103,9 @@ html[data-theme-family="modern"] .dno-dialog-btn.cancel:hover, html[data-theme-f
         if (!text || !target.isConnected) return;
         if (!tipEl) { tipEl = document.createElement('div'); tipEl.className = 'dno-tip'; tipEl.setAttribute('role', 'tooltip'); document.body.appendChild(tipEl); }
         tipEl.textContent = t(text);
-        // 네온 테마: 가리킨 버튼의 색(입법=보라, 선거=금색 …)을 말풍선 테두리·글자색으로
-        if (!isModern()) {
-            const c = getComputedStyle(target).color;
-            tipEl.style.setProperty('--dno-tip-c', c && c !== 'rgba(0, 0, 0, 0)' ? c : '');
-        } else tipEl.style.removeProperty('--dno-tip-c');
+        // 가리킨 버튼의 색(입법=보라, 선거=금색 …)을 말풍선 테두리·글자색으로
+        const c = getComputedStyle(target).color;
+        tipEl.style.setProperty('--dno-tip-c', c && c !== 'rgba(0, 0, 0, 0)' ? c : '');
         tipEl.classList.remove('show');
         tipEl.style.left = '-9999px'; tipEl.style.top = '0';
         placeTip(target);
@@ -159,7 +136,7 @@ html[data-theme-family="modern"] .dno-dialog-btn.cancel:hover, html[data-theme-f
         const overlay = document.createElement('div');
         overlay.className = 'dno-dialog-overlay';
         const box = document.createElement('div');
-        box.className = 'dno-dialog tone-' + (job.opts.tone || (job.confirm || isModern() ? 'info' : 'warn'));
+        box.className = 'dno-dialog tone-' + (job.opts.tone || (job.confirm ? 'info' : 'warn'));
         box.setAttribute('role', job.confirm ? 'alertdialog' : 'alert');
         box.setAttribute('aria-modal', 'true');
         if (job.opts.title) {

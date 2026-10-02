@@ -1,5 +1,4 @@
-/* ===== 튜토리얼(조작법 안내) — js/tutorial.js =====
-   기본은 네온 모양, 라이트/다크는 아래 [data-theme-family="modern"] 규칙이 덮어쓴다 */
+/* ===== 튜토리얼(조작법 안내) — js/tutorial.js ===== */
 .tut-layer { position: fixed; inset: 0; z-index: 8000; }
 .tut-catcher { position: absolute; inset: 0; }
 .tut-spot {
@@ -119,73 +118,3 @@
 .tut-actions .tut-next { background: var(--tno-neon); border-color: var(--tno-neon); color: #000; }
 .tut-actions .tut-next:hover { background: #fff; color: #000; }
 
-/* ---- 라이트/다크 ---- */
-html[data-theme-family="modern"] .tut-spot {
-    border: none;
-    border-radius: 14px;
-    box-shadow: 0 0 0 9999px rgba(9, 9, 11, .5), 0 0 0 2px var(--m-accent) !important;
-}
-html[data-theme-family="modern"] .tut-nodim .tut-spot { box-shadow: 0 0 0 2px var(--m-accent), var(--m-shadow-lg) !important; }
-html[data-theme-family="modern"] .tut-nodim.tut-no-target .tut-spot { box-shadow: none !important; }
-html[data-theme-family="modern"] .tut-compact .tut-bubble { padding: 12px 14px 10px; }
-html[data-theme-family="modern"] .tut-compact .tut-title { font-size: 15px; }
-html[data-theme-family="modern"] .tut-compact .tut-text { font-size: 13px; }
-html[data-theme-family="modern"] .tut-no-target .tut-spot { box-shadow: 0 0 0 9999px rgba(9, 9, 11, .5) !important; }
-html[data-theme-family="modern"] .tut-bubble {
-    background: var(--m-surface);
-    border: 1px solid var(--m-border);
-    border-radius: 16px;
-    box-shadow: var(--m-shadow-lg) !important;
-    color: var(--m-text);
-    padding: 18px 20px 16px;
-}
-html[data-theme-family="modern"] .tut-step { color: var(--m-text-3); font-size: 12px; font-weight: 600; }
-html[data-theme-family="modern"] .tut-count { color: var(--m-text-4); }
-html[data-theme-family="modern"] .tut-progress span { height: 4px; border-radius: 2px; background: var(--m-surface-3); box-shadow: none; }
-html[data-theme-family="modern"] .tut-progress span.past { background: var(--m-text-4); }
-html[data-theme-family="modern"] .tut-progress span.now { background: var(--m-accent); }
-html[data-theme-family="modern"] .tut-task { border: none; border-radius: 10px; background: color-mix(in srgb, var(--m-gold) 12%, transparent); color: var(--m-gold); font-size: 13px; font-weight: 600; }
-html[data-theme-family="modern"] .tut-task.done { background: color-mix(in srgb, var(--m-success) 13%, transparent); color: var(--m-success); }
-html[data-theme-family="modern"] .tut-task-icon { animation: none; }
-html[data-theme-family="modern"] .tut-lesson-btn { border: none; border-radius: 12px; background: var(--m-surface-2); color: var(--m-text); padding: 11px 12px; }
-html[data-theme-family="modern"] .tut-lesson-btn:hover { background: var(--m-surface-3); }
-html[data-theme-family="modern"] .tut-lesson-btn.next { box-shadow: inset 0 0 0 1.5px var(--m-accent); }
-html[data-theme-family="modern"] .tut-lesson-no { color: var(--m-text-3); font-size: 12px; font-weight: 700; }
-html[data-theme-family="modern"] .tut-lesson-title { color: var(--m-text); font-size: 14px; font-weight: 700; }
-html[data-theme-family="modern"] .tut-lesson-sum { color: var(--m-text-3); font-size: 12px; }
-html[data-theme-family="modern"] .tut-lesson-mark { color: var(--m-text-4); }
-html[data-theme-family="modern"] .tut-lesson-btn.done .tut-lesson-mark { color: var(--m-success); }
-html[data-theme-family="modern"] .tut-group-name { color: var(--m-text); font-size: 13px; font-weight: 800; letter-spacing: 0; }
-html[data-theme-family="modern"] .tut-group-sub { color: var(--m-text-3); font-size: 12px; }
-html[data-theme-family="modern"] .tut-title { color: var(--m-text); font-size: 17px; font-weight: 700; }
-html[data-theme-family="modern"] .tut-text { color: var(--m-text-2); font-size: 14px; }
-html[data-theme-family="modern"] .tut-actions button {
-    border: none;
-    border-radius: 9px;
-    background: var(--m-surface-2);
-    color: var(--m-text);
-    font-size: 13px;
-    font-weight: 600;
-    padding: 8px 14px;
-}
-html[data-theme-family="modern"] .tut-actions button:hover:not(:disabled) { background: var(--m-surface-3); color: var(--m-text); }
-html[data-theme-family="modern"] .tut-actions .tut-skip,
-html[data-theme-family="modern"] .tut-actions .tut-toc { background: transparent; color: var(--m-text-3); padding-left: 0; padding-right: 6px; }
-html[data-theme-family="modern"] .tut-actions .tut-toc:hover:not(:disabled),
-html[data-theme-family="modern"] .tut-actions .tut-skip:hover:not(:disabled) { background: transparent; color: var(--m-text); }
-html[data-theme-family="modern"] .tut-actions .tut-next.tut-ready { box-shadow: var(--m-ring); }
-html[data-theme-family="modern"] .tut-actions .tut-next { background: var(--m-accent); color: var(--m-on-accent); }
-html[data-theme-family="modern"] .tut-actions .tut-next:hover { background: var(--m-accent); color: var(--m-on-accent); opacity: .86; }
-
-html[data-theme-family="modern"] .tut-menu-bar { height: 6px; border-radius: 3px; background: var(--m-surface-3); overflow: hidden; }
-html[data-theme-family="modern"] .tut-menu-bar span { background: var(--m-success); box-shadow: none; border-radius: 3px; }
-html[data-theme-family="modern"] .tut-continue { border: none; border-radius: 12px; background: var(--m-accent); color: var(--m-on-accent); padding: 12px 14px; }
-html[data-theme-family="modern"] .tut-continue:hover { opacity: .9; }
-html[data-theme-family="modern"] .tut-continue-label { color: inherit; opacity: .7; font-size: 12px; font-weight: 600; }
-html[data-theme-family="modern"] .tut-continue-title { font-size: 14px; font-weight: 700; }
-html[data-theme-family="modern"] .tut-continue .tut-lesson-mark { color: inherit; }
-html[data-theme-family="modern"] .tut-tabs { gap: 4px; padding: 4px; border-radius: 12px; background: var(--m-surface-2); }
-html[data-theme-family="modern"] .tut-tab { border: none; border-radius: 9px; color: var(--m-text-3); font-size: 13px; font-weight: 700; padding: 8px; }
-html[data-theme-family="modern"] .tut-tab:hover { color: var(--m-text); }
-html[data-theme-family="modern"] .tut-tab.active { background: var(--m-surface); color: var(--m-text); box-shadow: var(--m-shadow-sm); }
-html[data-theme-family="modern"] .tut-tab-sub { color: var(--m-text-3); font-size: 12px; }

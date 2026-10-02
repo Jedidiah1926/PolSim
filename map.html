@@ -22,8 +22,8 @@
     --tno-gold: #ffd700;
   }
   * { box-sizing: border-box; }
-  /* 네온: 둥근모는 굵은 글꼴이 없어 브라우저가 가짜 굵게를 만들면 글자가 뭉개진다 — 다른 네온 화면처럼 보통 굵기로 */
-  html:not([data-theme-family="modern"]) body, html:not([data-theme-family="modern"]) body * { font-weight: normal; font-synthesis: none; }
+  /* 둥근모는 굵은 글꼴이 없어 브라우저가 가짜 굵게를 만들면 글자가 뭉개진다 — 다른 화면처럼 보통 굵기로 */
+  body, body * { font-weight: normal; font-synthesis: none; }
   body {
     font-family: 'NeoDunggeunmo', 'VT323', monospace;
     background: var(--tno-bg);
@@ -140,7 +140,6 @@
   .btn.icon { padding:6px 9px; font-size:15px; line-height:1; }
   #count { color: var(--tno-gold); }
 </style>
-<link rel="stylesheet" href="css/modern.css">
 </head>
 <body>
   <!-- 맵 메이커: 화면 크기에 맞춘 앱 레이아웃 (위: 앱 바 · 가운데: 미리보기 · 오른쪽: 요소 목록) — 페이지 스크롤 없음 -->
