@@ -11,7 +11,7 @@
      3. [자동 생성] 레트로 하드코딩 색 → 토큰 매핑
         (텍스트는 밝기 위계를 그대로, 어두운 배경은 표면색으로, 채도 있는 색은 의미별 색으로)
      4. 컴포넌트 (레이아웃·탭·입력·카드·버튼·대화상자)
-     5. 기타 페이지 (메인/설정·로드맵·점검·맵 메이커)
+     5. 기타 페이지 (메인/설정·점검·맵 메이커)
      6. 세로 탭 사이드바 (js/sidenav.js)
      7. 모바일 화면 모드 (아래 탭 바 · 실행 버튼 · 하위 탭 칩)
 
@@ -164,9 +164,6 @@ html[data-theme-family="modern"] .member-filter-btn:not(:where([style*="backgrou
 html[data-theme-family="modern"] .member-filter-popup:not(:where([style*="background"])),
 html[data-theme-family="modern"] .nation-id-bar:not(:where([style*="background"])),
 html[data-theme-family="modern"] .order-btn:not(:where([style*="background"])),
-html[data-theme-family="modern"] .rd-card:not(:where([style*="background"])),
-html[data-theme-family="modern"] .rd-header:not(:where([style*="background"])),
-html[data-theme-family="modern"] .rd-version-btn:not(:where([style*="background"])),
 html[data-theme-family="modern"] .ruling-selector:not(:where([style*="background"])),
 html[data-theme-family="modern"] .save-rename-input:not(:where([style*="background"])),
 html[data-theme-family="modern"] .save-select-head:not(:where([style*="background"])),
@@ -242,8 +239,6 @@ html[data-theme-family="modern"] .mobile-panel-btn:hover:not(:where([style*="bor
 html[data-theme-family="modern"] .nation-flag-banner:not(:where([style*="border-bottom"])),
 html[data-theme-family="modern"] .nation-id-bar:not(:where([style*="border-bottom"])),
 html[data-theme-family="modern"] .order-btn:not(:where([style*="border-bottom"])),
-html[data-theme-family="modern"] .rd-card:not(:where([style*="border-bottom"])),
-html[data-theme-family="modern"] .rd-title:not(:where([style*="border-bottom"])),
 html[data-theme-family="modern"] .ruling-selector:not(:where([style*="border-bottom"])),
 html[data-theme-family="modern"] .save-select-item-auto:not(:where([style*="border-bottom"])),
 html[data-theme-family="modern"] .save-tab-new-menu-item:not(:where([style*="border-bottom"])),
@@ -321,7 +316,6 @@ html[data-theme-family="modern"] .member-filter-popup:not(:where([style*="border
 html[data-theme-family="modern"] .mobile-panel-btn:hover:not(:where([style*="border-left"])),
 html[data-theme-family="modern"] .nation-flag-banner:not(:where([style*="border-left"])),
 html[data-theme-family="modern"] .order-btn:not(:where([style*="border-left"])),
-html[data-theme-family="modern"] .rd-card:not(:where([style*="border-left"])),
 html[data-theme-family="modern"] .ruling-selector:not(:where([style*="border-left"])),
 html[data-theme-family="modern"] .save-select-item-auto:not(:where([style*="border-left"])),
 html[data-theme-family="modern"] .stat-block:not(:where([style*="border-left"])),
@@ -393,7 +387,6 @@ html[data-theme-family="modern"] .member-filter-popup:not(:where([style*="border
 html[data-theme-family="modern"] .mobile-panel-btn:hover:not(:where([style*="border-right"])),
 html[data-theme-family="modern"] .nation-flag-banner:not(:where([style*="border-right"])),
 html[data-theme-family="modern"] .order-btn:not(:where([style*="border-right"])),
-html[data-theme-family="modern"] .rd-card:not(:where([style*="border-right"])),
 html[data-theme-family="modern"] .ruling-selector:not(:where([style*="border-right"])),
 html[data-theme-family="modern"] .save-select-item-auto:not(:where([style*="border-right"])),
 html[data-theme-family="modern"] .save-tab-new:not(:where([style*="border-right"])),
@@ -468,7 +461,6 @@ html[data-theme-family="modern"] .member-filter-popup:not(:where([style*="border
 html[data-theme-family="modern"] .mobile-panel-btn:hover:not(:where([style*="border-top"])),
 html[data-theme-family="modern"] .nation-flag-banner:not(:where([style*="border-top"])),
 html[data-theme-family="modern"] .order-btn:not(:where([style*="border-top"])),
-html[data-theme-family="modern"] .rd-card:not(:where([style*="border-top"])),
 html[data-theme-family="modern"] .ruling-selector:not(:where([style*="border-top"])),
 html[data-theme-family="modern"] .save-select-item-auto:not(:where([style*="border-top"])),
 html[data-theme-family="modern"] .stat-block:not(:where([style*="border-top"])),
@@ -524,7 +516,6 @@ html[data-theme-family="modern"] .log-meta:not(:where([style^="color"],[style*="
 }
 html[data-theme-family="modern"] .lang-switch:hover:not(:where([style^="color"],[style*=";color"],[style*="; color"],[style*=" color"])),
 html[data-theme-family="modern"] .maint-notice-bar:not(:where([style^="color"],[style*=";color"],[style*="; color"],[style*=" color"])),
-html[data-theme-family="modern"] .rd-version-btn.active:not(:where([style^="color"],[style*=";color"],[style*="; color"],[style*=" color"])),
 html[data-theme-family="modern"] .simulate-btn:not(:where([style^="color"],[style*=";color"],[style*="; color"],[style*=" color"])) {
     color: var(--m-on-accent) !important;
 }
@@ -542,7 +533,6 @@ html[data-theme-family="modern"] .log-msg:not(:where([style^="color"],[style*=";
 html[data-theme-family="modern"] .maintenance-msg:not(:where([style^="color"],[style*=";color"],[style*="; color"],[style*=" color"])),
 html[data-theme-family="modern"] .member-filter-btn:hover:not(:where([style^="color"],[style*=";color"],[style*="; color"],[style*=" color"])),
 html[data-theme-family="modern"] .order-btn:not(:where([style^="color"],[style*=";color"],[style*="; color"],[style*=" color"])),
-html[data-theme-family="modern"] .rd-desc:not(:where([style^="color"],[style*=";color"],[style*="; color"],[style*=" color"])),
 html[data-theme-family="modern"] .seat-info-card:not(:where([style^="color"],[style*=";color"],[style*="; color"],[style*=" color"])) {
     color: var(--m-text) !important;
 }
@@ -586,7 +576,6 @@ html[data-theme-family="modern"] .elec-record-toggle:not(:where([style^="color"]
 html[data-theme-family="modern"] .log-sub:not(:where([style^="color"],[style*=";color"],[style*="; color"],[style*=" color"])),
 html[data-theme-family="modern"] .main-tab-btn:not(:where([style^="color"],[style*=";color"],[style*="; color"],[style*=" color"])),
 html[data-theme-family="modern"] .maintenance-eta:not(:where([style^="color"],[style*=";color"],[style*="; color"],[style*=" color"])),
-html[data-theme-family="modern"] .rd-version-btn:not(:where([style^="color"],[style*=";color"],[style*="; color"],[style*=" color"])),
 html[data-theme-family="modern"] .remove-btn:not(:where([style^="color"],[style*=";color"],[style*="; color"],[style*=" color"])),
 html[data-theme-family="modern"] .save-fav-btn:not(:where([style^="color"],[style*=";color"],[style*="; color"],[style*=" color"])),
 html[data-theme-family="modern"] .save-select-empty:not(:where([style^="color"],[style*=";color"],[style*="; color"],[style*=" color"])),
@@ -2617,63 +2606,6 @@ html[data-theme-family="modern"] .save-select-item:hover { background: var(--m-s
 html[data-theme-family="modern"] .save-select-start-btn,
 html[data-theme-family="modern"] .save-select-import-btn { border-radius: 10px !important; }
 
-/* 로드맵 (roadmap.css) */
-html[data-theme-family="modern"] .rd-frame {
-    background: var(--m-surface) !important;
-    background-image: none !important;
-    border: 1px solid var(--m-border) !important;
-    border-radius: 20px;
-    box-shadow: var(--m-shadow) !important;
-}
-html[data-theme-family="modern"] .rd-frame::before,
-html[data-theme-family="modern"] .rd-frame::after { display: none !important; }
-html[data-theme-family="modern"] .rd-header { background: none !important; border-bottom: 1px solid var(--m-border) !important; color: var(--m-text) !important; }
-html[data-theme-family="modern"] .rd-header-title { font-weight: 700; font-size: 15px; }
-html[data-theme-family="modern"] .rd-back { border: none; border-radius: 9px; background: var(--m-surface-2); color: var(--m-text) !important; font-size: 13px; font-weight: 600; padding: 6px 12px; text-shadow: none; }
-html[data-theme-family="modern"] .rd-back:hover { background: var(--m-surface-3); box-shadow: none; }
-html[data-theme-family="modern"] .rd-header-divider { background: var(--m-border) !important; }
-html[data-theme-family="modern"] .rd-version-nav { background: var(--m-surface-2); border-radius: 10px; padding: 3px; gap: 2px; }
-html[data-theme-family="modern"] .rd-version-btn {
-    background: transparent !important;
-    border: none !important;
-    border-radius: 7px !important;
-    color: var(--m-text-3) !important;
-    font-size: 13px;
-    font-weight: 600;
-}
-html[data-theme-family="modern"] .rd-version-btn:hover { color: var(--m-text) !important; }
-html[data-theme-family="modern"] .rd-version-btn.active { background: var(--m-surface) !important; color: var(--m-text) !important; box-shadow: var(--m-shadow-sm) !important; }
-html[data-theme-family="modern"] .rd-section-title { color: var(--m-text) !important; font-family: inherit; font-weight: 800; letter-spacing: -.5px; text-shadow: none !important; }
-html[data-theme-family="modern"] .rd-card {
-    background: var(--m-surface) !important;
-    border: 1px solid var(--m-border) !important;
-    border-top: 3px solid var(--card-color, var(--m-border-strong)) !important;
-    border-radius: 14px;
-    box-shadow: var(--m-shadow-sm) !important;
-}
-html[data-theme-family="modern"] .rd-title { color: var(--m-text) !important; font-weight: 700; border-bottom-color: var(--m-border) !important; }
-html[data-theme-family="modern"] .rd-desc { color: var(--m-text-2) !important; }
-html[data-theme-family="modern"] .rd-section-cards::before { background: var(--m-border) !important; box-shadow: none !important; }
-html[data-theme-family="modern"] .rd-card.placeholder {
-    background: repeating-linear-gradient(45deg, var(--m-surface-2), var(--m-surface-2) 8px, transparent 8px, transparent 16px), var(--m-surface) !important;
-    border: 1px dashed var(--m-border-strong) !important;
-    box-shadow: none !important;
-    opacity: .5;
-}
-html[data-theme-family="modern"] .rd-card.placeholder .rd-title { color: var(--m-text-3) !important; }
-html[data-theme-family="modern"] .rd-more { color: var(--m-text-3); font-weight: 600; opacity: 1; }
-html[data-theme-family="modern"] .rd-card.has-detail:hover .rd-more { color: var(--m-text); }
-html[data-theme-family="modern"] .rd-detail-layer { background: rgba(0, 0, 0, .35); backdrop-filter: blur(2px); }
-html[data-theme-family="modern"] .rd-detail.rd-card { border-radius: 18px; box-shadow: var(--m-shadow) !important; }
-html[data-theme-family="modern"] .rd-detail-close { border: none; border-radius: 9px; background: var(--m-surface-2); color: var(--m-text); }
-html[data-theme-family="modern"] .rd-detail-close:hover { background: var(--m-surface-3); color: var(--m-text); }
-/* 로드맵 스크롤바: 네온의 검은 트랙 · 카드색 막대 대신 배경 없는 가는 회색 막대 */
-html[data-theme-family="modern"] .rd-desc,
-html[data-theme-family="modern"] .rd-track-viewport,
-html[data-theme-family="modern"] .rd-header { scrollbar-width: thin; scrollbar-color: var(--m-border-strong) transparent !important; }
-html[data-theme-family="modern"] .rd-desc::-webkit-scrollbar-track { background: transparent !important; }
-html[data-theme-family="modern"] .rd-desc::-webkit-scrollbar-thumb { background: var(--m-border-strong) !important; box-shadow: none !important; border-radius: 999px; }
-
 /* 맵 메이커 (map.html 인라인 스타일) */
 html[data-theme-family="modern"] h1 { color: var(--m-text) !important; font-weight: 800; }
 html[data-theme-family="modern"] .panel {
@@ -3036,12 +2968,6 @@ html[data-theme-family="modern"] .thr-same,
 html[data-theme-family="modern"] .thr-ch { color: var(--m-text-3); }
 html[data-theme-family="modern"] .thr-slash { color: var(--m-text-3); }
 html[data-theme-family="modern"] .thr-preview { color: var(--m-text-2); font-weight: 600; }
-html[data-theme-family="modern"] .gov-hl-color > label { color: var(--m-text-3); }
-html[data-theme-family="modern"] .gov-hl-color-row input[type="color"] { border: 1px solid var(--m-border) !important; border-radius: 8px; overflow: hidden; }
-html[data-theme-family="modern"] .gov-hl-color-reset { background: var(--m-surface-2); border: none; border-radius: 9px; color: var(--m-text-2); font-weight: 600; }
-html[data-theme-family="modern"] .gov-hl-color-reset:hover { background: var(--m-surface-3); color: var(--m-text); }
-html[data-theme-family="modern"] .rd-link { color: var(--m-text); font-weight: 600; text-decoration-color: var(--m-border-strong); }
-html[data-theme-family="modern"] .rd-link:hover { text-shadow: none; text-decoration-color: currentColor; }
 html[data-theme-family="modern"] .home-news { background: var(--m-surface); border: 1px solid var(--m-border); border-radius: 20px; box-shadow: var(--m-shadow); padding: 8px; }
 html[data-theme-family="modern"] .home-news-head { color: var(--m-text-3); font-size: 12px; font-weight: 600; letter-spacing: .5px; padding: 4px 10px 2px; }
 html[data-theme-family="modern"] .home-news-item { border: none; border-radius: 14px; color: var(--m-text); text-shadow: none; }
@@ -3050,9 +2976,6 @@ html[data-theme-family="modern"] .home-news-icon { border-radius: 11px; backgrou
 html[data-theme-family="modern"] .home-news-label { font-weight: 600; font-size: 15px; letter-spacing: 0; }
 html[data-theme-family="modern"] .home-news-desc { color: var(--m-text-3); font-size: 12.5px; }
 html[data-theme-family="modern"] .home-news-ext { color: var(--m-text-3); }
-html[data-theme-family="modern"] .rd-subtitle { color: var(--m-text-3); font-weight: 500; }
-html[data-theme-family="modern"] .rd-ver { font-weight: 800; letter-spacing: -.3px; }
-html[data-theme-family="modern"] .rd-name { color: var(--m-text); font-weight: 600; }
 html[data-theme-family="modern"] .home-stage { color: var(--m-text); text-shadow: none; border: none; background: none; box-shadow: none; padding: 0; border-radius: 0; font-size: 13px; font-weight: 600; letter-spacing: 1px; }
 html[data-theme-family="modern"] .preset-card-date { color: var(--m-text-3); font-size: 12.5px; font-weight: 500; letter-spacing: 0; }
 html[data-theme-family="modern"] .preset-card-soon:hover { background: transparent !important; }

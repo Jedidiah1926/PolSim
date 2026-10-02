@@ -161,7 +161,7 @@
 
     window.getLang = getLang;
     window.setLang = setLang;
-    // translateSubtree(el): 페이지 로드 뒤에 새로 그려진 부분(시작 화면 세이브 목록, 로드맵 버전 탭 등)을 번역.
+    // translateSubtree(el): 페이지 로드 뒤에 새로 그려진 부분(시작 화면 세이브 목록 등)을 번역.
     // 한국어일 땐 아무 일도 하지 않고, 팩이 준비되기 전에 불리면 준비된 뒤에 번역한다.
     // t(s): 문자열 하나를 번역 (한국어이거나 팩이 아직 준비 전이면 그대로)
     window.DnoLang = { list: listLanguages, install: installPack, remove: removePack, template: buildTemplate, validate: normalizePack, format: PACK_FORMAT, translateSubtree: () => {}, t: s => s };
@@ -261,7 +261,7 @@
     };
 
     // 초기 화면 로드 시점에 전체를 번역하고, 그 뒤에 새로 그려지거나 바뀐 부분은 MutationObserver로 계속 번역한다.
-    // main.js/roadmap.js의 자체 초기 렌더링(window.onload)이 끝난 뒤에 실행되도록 load 이벤트를 기다린다.
+    // main.js의 자체 초기 렌더링(window.onload)이 끝난 뒤에 실행되도록 load 이벤트를 기다린다.
     const pageLoaded = new Promise(resolve => {
         if (document.readyState === 'complete') resolve();
         else window.addEventListener('load', () => resolve());
@@ -283,7 +283,7 @@
         window.DnoLang.t = s => translate(s);
         waiting.forEach(el => { if (el.isConnected) translateTree(el, translate); });
         waiting.clear();
-        // 번역된 문자열로 직접 다시 그려야 하는 화면(로드맵 카드 제목 등)에 알림
+        // 번역된 문자열로 직접 다시 그려야 하는 화면에 알림
         window.dispatchEvent(new Event('dnolangready'));
         // 앱이 나중에 다시 그리는 부분(목록 갱신, 도움말, 튜토리얼 말풍선, 알림창 등)도 계속 번역한다.
         // 번역 결과가 같으면 건드리지 않으므로, 이 번역이 다시 변경을 일으켜도 한 번 더 확인하고 멈춘다.

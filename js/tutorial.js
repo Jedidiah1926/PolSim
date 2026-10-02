@@ -27,7 +27,7 @@
     // 모바일 화면 모드에선 편집 패널/좌석 화면 중 하나만 보이므로 필요한 쪽으로 전환
     const showPanel = which => () => { if (isMobileLayout() && typeof setMobilePanel === 'function') setMobilePanel(which); };
 
-    // ---- 앱 상태 읽기 (main.js/teaser.js의 최상위 let 변수는 window 속성이 아니라 이름으로만 보인다) ----
+    // ---- 앱 상태 읽기 (main.js의 최상위 let 변수는 window 속성이 아니라 이름으로만 보인다) ----
     /* global parties, bills */
     const partyList = () => (typeof parties !== 'undefined' && Array.isArray(parties)) ? parties : [];
     const billList = () => (typeof bills !== 'undefined' && Array.isArray(bills)) ? bills : [];
@@ -389,7 +389,7 @@
                     before: [showPanel('controls')],
                     target: '#saveTabBar .save-tab-home',
                     title: '메인 화면',
-                    text: '⌂를 누르면 저장한 뒤 메인 화면으로 갑니다. 메인 화면에서는 시작하기(세이브 고르기 · 프리셋 · 파일 불러오기), 맵 메이커, 로드맵, 설정(라이트 · 다크 · 네온 테마, 데스크톱 · 모바일 화면 모드)을 고르고, 🌐로 언어를 바꿉니다. 이 튜토리얼은 시작하기 › 프리셋의 "튜토리얼 공화국"으로 언제든 다시 할 수 있어요.',
+                    text: '⌂를 누르면 저장한 뒤 메인 화면으로 갑니다. 메인 화면에서는 시작하기(세이브 고르기 · 프리셋 · 파일 불러오기), 맵 메이커, 설정(라이트 · 다크 · 네온 테마, 데스크톱 · 모바일 화면 모드)을 고르고, 🌐로 언어를 바꿉니다. 이 튜토리얼은 시작하기 › 프리셋의 "튜토리얼 공화국"으로 언제든 다시 할 수 있어요.',
                 },
             ],
         },
